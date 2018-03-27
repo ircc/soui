@@ -168,7 +168,7 @@ PUGI__NS_BEGIN
 	}
 
 	// Compare two strings
-	PUGI__FN bool strequal(const char_t* src, const char_t* dst,bool bCaseSensitive)
+	PUGI__FN bool strequal(const char_t* src, const char_t* dst,bool bCaseSensitive=false)
 	{
 		assert(src && dst);
         if(bCaseSensitive)
