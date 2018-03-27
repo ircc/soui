@@ -621,6 +621,7 @@ BOOL SPanel::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
     short delta = m_zDelta /WHEEL_DELTA;
 	m_zDelta %= WHEEL_DELTA;
 
+    BOOL bRet=TRUE;
     short nLines = delta>0?delta:(-delta);
     short i = 0;
     for (; i < nLines; i++)
@@ -628,6 +629,7 @@ BOOL SPanel::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
         // 返回FALSE代表无法再再进行滚动,可以透传给父窗口
         if (!OnScroll(TRUE, delta>0?SB_LINEUP:SB_LINEDOWN, 0)) 
         {
+            bRet=FALSE;
             break;
         }
     }
@@ -643,7 +645,7 @@ BOOL SPanel::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
         ::SendMessage(hHost,WM_MOUSEMOVE,nFlags,MAKELPARAM(pt.x,pt.y));
         ::SendMessage(hHost,WM_SETCURSOR,WPARAM(hHost),MAKELPARAM(HTCLIENT,WM_MOUSEMOVE));
     }
-    return FALSE;
+    return bRet;
 }
 
 
