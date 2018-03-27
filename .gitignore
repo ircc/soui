@@ -1,0 +1,13 @@
+# 注释以'#'开始      
+
+# 忽略指定文件
+/*.ncb
+/*.sdf
+
+*.ray.user
+*.vcxproj.user
+
+# 忽略指定目录
+obj
+bin
+bin_2008
