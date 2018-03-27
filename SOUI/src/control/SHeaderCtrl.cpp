@@ -9,6 +9,7 @@ namespace SOUI
 	SHeaderCtrl::SHeaderCtrl(void)
 		:m_bFixWidth(FALSE)
 		, m_bItemSwapEnable(TRUE)
+        , m_bLastItemFixWidth(FALSE)
 		, m_bSortHeader(TRUE)
 		, m_pSkinItem(GETBUILTINSKIN(SKIN_SYS_HEADER))
 		, m_pSkinSort(NULL)
@@ -90,6 +91,20 @@ namespace SOUI
 		}
 		AfterPaint(pRT, painter);
 	}
+
+
+    void SHeaderCtrl::OnSize(UINT nType, CSize size)
+    {
+        // 最后一列宽度自适应
+        if (m_bLastItemFixWidth)
+        {
+            CRect rcClient;
+            GetClientRect(&rcClient);
+            int count = m_arrItems.GetCount()-1;
+            int width = GetItemWidth(count) + rcClient.Width() - GetTotalWidth();
+            m_arrItems[count].cx = width;
+        }
+    }
 
 	void SHeaderCtrl::DrawItem(IRenderTarget * pRT, CRect rcItem, const LPSHDITEM pItem)
 	{
@@ -458,6 +473,19 @@ namespace SOUI
 		if(!m_arrItems[iItem].bVisible) return 0;
 		return m_arrItems[iItem].cx;
 	}
+
+    void SHeaderCtrl::SetItemWidth( int iItem, int Width )
+    {
+        if(iItem<0 || (UINT)iItem>= m_arrItems.GetCount()) return;
+        m_arrItems[iItem].cx = Width;
+        Invalidate();
+        GetContainer()->UpdateWindow();//立即更新窗口
+        //发出调节宽度消息
+        EventHeaderItemChanging evt(this);
+        evt.iItem = iItem;
+        evt.nWidth = Width;
+        FireEvent(evt);
+    }
 
 	void SHeaderCtrl::OnActivateApp(BOOL bActive, DWORD dwThreadID)
 	{

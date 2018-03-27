@@ -131,6 +131,17 @@ namespace SOUI
        * Describe  获得新项  
        */            
       int GetItemWidth(int iItem);
+
+       /**
+       * SHeaderCtrl::GetItemWidth
+       * @brief    设置指定项宽度
+       * @param    int iItem  --  索引
+       * @return   返回int 
+       *
+       * Describe  获得新项  
+       */            
+      void SetItemWidth(int iItem, int Width);
+
       /**
        * SHeaderCtrl::DeleteItem
        * @brief    删除指定项
@@ -159,6 +170,7 @@ namespace SOUI
           ATTR_SKIN(L"itemSkin",m_pSkinItem,FALSE)
           ATTR_SKIN(L"sortSkin",m_pSkinSort,FALSE)
           ATTR_INT(L"fixWidth",m_bFixWidth,FALSE)
+          ATTR_INT(L"lastItemFixWidth",m_bLastItemFixWidth,FALSE)
           ATTR_INT(L"itemSwapEnable",m_bItemSwapEnable,FALSE)
           ATTR_INT(L"sortHeader",m_bSortHeader,FALSE)
       SOUI_ATTRS_END()
@@ -189,6 +201,7 @@ namespace SOUI
        */            
       void OnPaint(IRenderTarget * pRT);
 
+      void OnSize(UINT nType, CSize size);
       /**
        * SHeaderCtrl::DrawItem
        * @brief    绘画
@@ -313,6 +326,7 @@ namespace SOUI
       
       SOUI_MSG_MAP_BEGIN()
           MSG_WM_PAINT_EX(OnPaint)
+          MSG_WM_SIZE(OnSize)
           MSG_WM_LBUTTONDOWN(OnLButtonDown)
           MSG_WM_LBUTTONUP(OnLButtonUp)
           MSG_WM_MOUSEMOVE(OnMouseMove)
@@ -326,6 +340,7 @@ namespace SOUI
       BOOL          m_bSortHeader;      /**< 表头可以点击排序 */
       BOOL          m_bFixWidth;        /**< 表项宽度固定开关 */
       BOOL          m_bItemSwapEnable;  /**< 允许拖动调整位置开关 */
+      BOOL          m_bLastItemFixWidth; /**< 允许最后一列自适应宽度，默认禁止按配置宽度显示 */
 
       BOOL            m_bDragging; /**< 正在拖动标志 */
       HBITMAP         m_hDragImg;  /**< 显示拖动窗口的临时位图 */
