@@ -2975,7 +2975,7 @@ PUGI__NS_BEGIN
 			#ifdef PUGIXML_MEMORY_OUTPUT_STACK
 				PUGIXML_MEMORY_OUTPUT_STACK
 			#else
-				10240
+				/*10240*/32*1024
 			#endif
 			,
 			bufcapacity = bufcapacitybytes / (sizeof(char_t) + 4)
