@@ -38,13 +38,13 @@ namespace SOUI
 		BOOL InitFromXml(pugi::xml_node xmlNode)
 		{
 			if (!xmlNode) return FALSE;
-#ifdef _DEBUG
+//#ifdef _DEBUG
 			{
 				pugi::xml_writer_buff writer;
 				xmlNode.print(writer, L"\t", pugi::format_default, pugi::encoding_utf16);
 				m_strXml = SStringW(writer.buffer(), writer.size());
 			}
-#endif
+//#endif
 
 			//设置当前对象的属性
 
@@ -124,10 +124,10 @@ namespace SOUI
 			UNREFERENCED_PARAMETER(xmlNode);
 		}
 
-#ifdef    _DEBUG
+//#ifdef    _DEBUG
 	public:
 		SStringW m_strXml;  //<** XML字符串，用于在调试时观察对象*/
-#endif//_DEBUG
+//#endif//_DEBUG
 	};
 
 #ifdef UTILITIES_EXPORTS
