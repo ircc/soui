@@ -519,7 +519,7 @@ SAnimateImgWnd::SAnimateImgWnd()
 void SAnimateImgWnd::OnPaint(IRenderTarget *pRT)
 {
     if (m_pSkin)
-        m_pSkin->Draw(pRT, GetWindowRect(), m_iCurFrame);
+        m_pSkin->Draw(pRT, GetWindowRect(), m_iCurFrame-1);
 }
 
 
